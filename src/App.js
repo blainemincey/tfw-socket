@@ -7,6 +7,9 @@ import ReactBarChart from "./ReactBarChart";
 import {css} from '@emotion/core';
 import {RingLoader} from "react-spinners";
 
+export const APP_ROUTE_TOTALS_SOCKET = process.env.REACT_APP_ROUTE_TOTALS_SOCKET;
+export const APP_AVG_CLAIM_SOCKET = process.env.REACT_APP_AVG_CLAIM_SOCKET;
+
 // Can be a string as well. Need to ensure each key-value pair ends with ;
 const override = css`
   display: block;
@@ -21,18 +24,21 @@ class App extends Component {
             // Route Totals
             routeTotalsData: '',
             routeTotalsIsLoading: true,
-            routeTotalsEndpoint: process.env.REACT_APP_ROUTE_TOTALS_SOCKET,
+            routeTotalsEndpoint: APP_ROUTE_TOTALS_SOCKET,
 
             // Avg Claim
             avgClaimData: '',
             avgClaimIsLoading: true,
-            avgClaimEndpoint: process.env.REACT_APP_AVG_CLAIM_SOCKET
+            avgClaimEndpoint: APP_AVG_CLAIM_SOCKET
         };
     }
 
     componentDidMount() {
         // Route Totals
         const {routeTotalsEndpoint} = this.state;
+
+        console.log("Route Totals Websocket Endpoint: " + routeTotalsEndpoint);
+
         const rtSocket = socketIOClient(routeTotalsEndpoint);
         rtSocket.on("FromRouteTotalsAPI", routeTotalsResult => this.setState({
             routeTotalsData: routeTotalsResult,
@@ -41,6 +47,9 @@ class App extends Component {
 
         // Avg Claim
         const {avgClaimEndpoint} = this.state;
+
+        console.log("Avg Claims Websocket Endpoint: " + avgClaimEndpoint);
+
         const acSocket = socketIOClient(avgClaimEndpoint);
         acSocket.on("FromAvgClaimAPI", avgClaimResult => this.setState({
             avgClaimData: avgClaimResult,

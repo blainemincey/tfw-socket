@@ -1,0 +1,67 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ResultDiv {
+  display: block;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 300px;
+  width: 500px;
+  padding-top: 25px;
+  padding-left: 100px;
+}
+
+.Kafka {
+  color: #EC0F12;
+}
+
+.Mongo {
+  color: #229954;
+}
+
+hr.style13 {
+  border: 0;
+  height: 1px;
+  background: #FFFFFF;
+}
+
+hr.style15 {
+  border-top: 4px double #FFFFFF;
+  text-align: center;
+}

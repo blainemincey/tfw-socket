@@ -84,7 +84,7 @@ class ReactBarChart extends Component {
             responsive: true,
             title: {
                 display: true,
-                text: 'Total Claims / Avg Claim by Claim Type',
+                text: 'Avg Claim Amount / Total Claims by Claim Type',
                 fontColor: 'white',
                 fontSize: 16
             },
@@ -104,6 +104,10 @@ class ReactBarChart extends Component {
                 }
             },
             scales : {
+                /**
+                 * Trying the bar chart without ticks to improve
+                 * readability of two separate datasets
+                 *
                 xAxes : [{
                     ticks : {
                         fontColor: 'white',
@@ -117,7 +121,7 @@ class ReactBarChart extends Component {
                         labelString: 'Avg Claim Amount',
                         fontColor: 'white'
                     }
-                }],
+                }], **/
                 yAxes : [{
                     ticks : {
                         fontColor: 'white',

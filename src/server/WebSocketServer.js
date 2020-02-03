@@ -4,6 +4,13 @@ const socketIo = require("socket.io");
 const axios = require("axios");
 const port = process.env.WEBSOCKET_PORT || 4002;
 
+// create new express app
+const avgClaimApp = express();
+// create http server and wrap the express app
+const server = http.createServer(avgClaimApp);
+// bind socket.io to the newly created server
+const io = socketIo(server);
+
 // load webhook value from env file
 require('dotenv').config();
 const avgClaimStitchWebhook = process.env.AVG_CLAIM_STITCH_WEBHOOK;
@@ -31,8 +38,9 @@ const getApiAndEmitResult = async socket => {
         console.info("================");
 
         // Emitting a new message. It will be consumed by the client
-        socket.emit("FromAvgClaimAPI", JSON.stringify(res.data));
-        socket.emit("FromRouteTotalsAPI", JSON.stringify(totalClaimsRes.data));
+        // io.emit will send to all connected clients including the sender
+        io.emit("FromAvgClaimAPI", JSON.stringify(res.data));
+        io.emit("FromRouteTotalsAPI", JSON.stringify(totalClaimsRes.data));
 
     } catch (error) {
         console.error(`Error: ${error.code}`);
@@ -41,12 +49,6 @@ const getApiAndEmitResult = async socket => {
 
 // start server
 function startServer() {
-    // create new express app
-    const avgClaimApp = express();
-    // create http server and wrap the express app
-    const server = http.createServer(avgClaimApp);
-    // bind socket.io to the newly created server
-    const io = socketIo(server);
 
     // smoke test
     avgClaimApp.get("/", (req, res) => {
